@@ -52,7 +52,7 @@
 4、Redirect URL 你的App重定向地址，通常是由店铺重定向到你的App时的地址。
 
 上面的四个参数需要配置到demo的配置文件当中
-[配置文件](./example-app/config/oauth.php)
+[配置文件](./truly-badge/config/oauth.php)
 
 ``` injectablephp
 <?php
@@ -88,7 +88,7 @@ return[
 docker-compose默认的镜像源是国际源，如果在拉取的时候网络连接缓慢或者异常，建议更换国内源进行拉取。更换方式请自行搜索。
 
 ####  2.4.1. <a name='docker-compose'></a>docker-compose
-[docker-compose.yml](/example-app/docker-compose.yml)
+[docker-compose.yml](/truly-badge/docker-compose.yml)
 如果熟悉docker，可以直接配置该文件
 ```
 # For more information: https://laravel.com/docs/sail
@@ -196,7 +196,7 @@ docker-compose启动命令
 
 ```
 #进入demo项目
-cd example-app  
+cd truly-badge  
 
 #前台启动
 docker-compose up
@@ -220,7 +220,7 @@ docker-compose down
 
 ####  2.4.2. <a name='Laravel'></a>Laravel 脚本启动
 
-[脚本文件](./example-app/vendor/bin/sail)
+[脚本文件](./truly-badge/vendor/bin/sail)
 
 ```
 ··· 
@@ -247,7 +247,7 @@ export SAIL_SHARE_SUBDOMAIN=${SAIL_SHARE_SUBDOMAIN:-""}
 [sail介绍文档](https://learnku.com/docs/laravel/8.x/sail/9789#installing-sail-into-existing-applications)
 ```
 #进入demo项目
-cd example-app  
+cd truly-badge  
 
 #配置环境并运行项目
 ./vendor/bin/sail up
@@ -297,7 +297,7 @@ https域名/openapi_test
 ```shell
 .
 ├── Readme.md
-├── example-app
+├── truly-badge
 │   ├── README.md
 │   ├── app
 │   │   └── Http
@@ -340,7 +340,7 @@ https域名/openapi_test
 
 Demo的主要目的是为了为开发者提供一些使用上的便捷，以及方便理解使用方法。
 
-Demo是项目目录下example-app是一个[Laravel](https://laravel.com/) 框架实现的phpwebDemo。
+Demo是项目目录下truly-badge是一个[Laravel](https://laravel.com/) 框架实现的phpwebDemo。
 
 Demo已经设置了全局的 middleware 会默认拦截 `/auth/shoplazza` 以及 `/auth/shoplazza/callback` 两个 URL 的请求:
 - `/auth/shoplazza?shop=xx.myshoplaza.com` : 请求此 URL 时，会重定向到 https://xx.myshoplaza.com/admin/oauth/authorize 去发起授权流程
@@ -351,7 +351,7 @@ Demo已经设置了全局的 middleware 会默认拦截 `/auth/shoplazza` 以及
 
 ####  4.1.1. <a name='-1'></a>中间件的实现
 
-[中间件代码](./example-app/app/Http/Middleware/OauthDemo.php)
+[中间件代码](./truly-badge/app/Http/Middleware/OauthDemo.php)
 
 ```injectablephp
 <?php
@@ -418,7 +418,7 @@ class OauthDemo
 
 ####  4.1.2. <a name='-1'></a> 中间件的注册
 
-[中间件注册配置](./example-app/app/Http/Kernel.php)
+[中间件注册配置](./truly-badge/app/Http/Kernel.php)
 
 
 ```injectablephp
@@ -455,7 +455,7 @@ class Kernel extends HttpKernel
 
 ###  4.2. <a name='-1'></a>关于测试程序
 
-[测试程序](./example-app/routes/web.php)
+[测试程序](./truly-badge/routes/web.php)
 
 ```injectablephp
 Route::get('/openapi_test', function () {

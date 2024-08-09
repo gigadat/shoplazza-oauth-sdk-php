@@ -50,7 +50,7 @@ The parameters mentioned in the "Building Public App" and "Managing Your App" ar
 4、Redirect：URL Your app's redirect URL, generally used to receive OAuth responses
 
 The preceding four parameters need to be set in the demo configuration file
-[The configuration file](./example-app/config/oauth.php)
+[The configuration file](./truly-badge/config/oauth.php)
 
 ``` injectablephp
 <?php
@@ -90,7 +90,7 @@ In the program of Demo, there are two startup modes, which are actually dependen
 Docker-compose's default mirror source is an international source. If the network connection is slow or abnormal, it is recommended to change the domestic source for docker-compose. Search for the replacement mode by yourself.
 
 ####  2.4.1. <a name='docker-compose'></a>docker-compose
-[docker-compose.yml](/example-app/docker-compose.yml)
+[docker-compose.yml](/truly-badge/docker-compose.yml)
 
 If you are familiar with Docker, you can configure this file directly
 ```
@@ -198,7 +198,7 @@ docker-compose Start the command
 
 ```
 #Enter the Demo project
-cd example-app  
+cd truly-badge  
 
 #The front desk to start the
 docker-compose up
@@ -222,7 +222,7 @@ docker-compose down
 
 ####  2.4.2. <a name='TheLaravelscriptstarts'></a>The Laravel script starts
 
-[The script file](./example-app/vendor/bin/sail)
+[The script file](./truly-badge/vendor/bin/sail)
 
 ```
 ··· 
@@ -250,7 +250,7 @@ Script Start command
 [sail doc](https://laravel.com/docs/sail)
 ```
 #Enter the Demo project
-cd example-app  
+cd truly-badge  
 
 #Configure the environment and run the project
 ./vendor/bin/sail up
@@ -302,7 +302,7 @@ https://host/openapi_test
 ```shell
 .
 ├── Readme.md
-├── example-app
+├── truly-badge
 │   ├── README.md
 │   ├── app
 │   │   └── Http
@@ -345,7 +345,7 @@ https://host/openapi_test
 
 The main purpose of Demo is to provide some convenience for developers to use and understand how to use it.
 
-Example-app is a [Laravel](https://laravel.com/) framework implementation of phpwebDemo.
+Truly-badge is a [Laravel](https://laravel.com/) framework implementation of phpwebDemo.
 
 The Demo has set up global middleware to block requests for `/auth/shoplazza` and `/auth/shoplazza/callback` by default:
 - `/auth/shoplazza?shop=xx.myshoplaza.com` : Asked this URL will be redirected to the https://xx.myshoplaza.com/admin/oauth/authorize to initiate the authorization process
@@ -355,7 +355,7 @@ The Demo has set up global middleware to block requests for `/auth/shoplazza` an
 
 ####  4.1.1. <a name='ImplementationofMiddleware'></a>Implementation of Middleware
 
-[Middleware](./example-app/app/Http/Middleware/OauthDemo.php)
+[Middleware](./truly-badge/app/Http/Middleware/OauthDemo.php)
 
 ```injectablephp
 <?php
@@ -412,7 +412,7 @@ class OauthDemo
 
 ####  4.1.2. <a name='Middlewareregistration'></a> Middleware registration
 
-[Middleware registration config](./example-app/app/Http/Kernel.php)
+[Middleware registration config](./truly-badge/app/Http/Kernel.php)
 
 
 ```injectablephp
@@ -450,7 +450,7 @@ class Kernel extends HttpKernel
 
 ###  4.2. <a name='AbouttheTestProcedure'></a>About the Test Procedure
 
-[The test program](./example-app/routes/web.php)
+[The test program](./truly-badge/routes/web.php)
 
 ```injectablephp
 Route::get('/openapi_test', function () {
