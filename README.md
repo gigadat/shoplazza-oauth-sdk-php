@@ -31,7 +31,7 @@
 ##  1. <a name='Introduce'></a>Introduce
 
 This project is a PHP SDK for Shoplazza developers to complete authentication without having to understand too much Oauth2 process.
-Read the documentation for the Shoplazza certification process [Standard OAuth process](https://helpcenter.shoplazza.com/hc/zh-cn/articles/4408686586137#h_01FM4XX2CX746V3277HB7SPGTN)
+Read the documentation for the Shoplazza certification process [Standard OAuth process](https://helpcenter.shoplazza.com/hc/en-us/articles/4408686586137-Migrate-to-Standard-OAuth-flow)
 
 
 ##  2. <a name='Quickstart'></a>Quick start
