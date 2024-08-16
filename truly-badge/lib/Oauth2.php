@@ -134,7 +134,7 @@ class Oauth2
 
     public function  ValidShop(string $stop):bool{
         $domain = $this->Domain;
-        if (!empty($domain)){
+        if (empty($domain)){
             $domain = DefaultDomain;
         }
         if (preg_match("/^[a-zA-Z0-9-]+\.".$domain."$/", $stop)){
