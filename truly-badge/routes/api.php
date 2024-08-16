@@ -24,6 +24,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // Request URL format: app_url?hmac=${hmac}&install_from=app_store&shop=${store_domian_name}&store_id=${store_id}
 Route::get('/auth', function (Request $request) {
+    Log::info('New Auth Request');
+    
     $hmac = $request->hmac;
     $install_from = $request->install_from;
     $shop = $request->shop;
