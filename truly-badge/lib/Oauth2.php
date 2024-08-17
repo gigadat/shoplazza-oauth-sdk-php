@@ -132,17 +132,17 @@ class Oauth2
         return $authUrl."?".http_build_query($value,"","&",PHP_QUERY_RFC1738);
     }
 
-    public function  ValidShop(string $stop):bool{
+    public function ValidShop(string $shop):bool
+    {
         $domain = $this->Domain;
         if (empty($domain)){
             $domain = DefaultDomain;
         }
-        if (preg_match("/^[a-zA-Z0-9-]+\.".$domain."$/", $stop)){
+        if (!preg_match("/^[a-zA-Z0-9-]+\.".$domain."$/", $shop)){
             return true;
         }
 
         return false;
-
     }
     public  function SignatureValid($hmac ) :bool{
 
