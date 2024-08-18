@@ -1,6 +1,6 @@
 <?php
 
-require '../lib/Oauth2Middleware.php';
+// require '../lib/Oauth2Middleware.php';
 
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Route;
