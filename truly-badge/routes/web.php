@@ -1,10 +1,10 @@
 <?php
 
+require '../lib/Oauth2Middleware.php';
+
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Route;
-//use PHPShoplazza\Oauth2Middleware;
-
-//require '../lib/Oauth2Middleware.php';
+use PHPShoplazza\Oauth2Middleware;
 
 
 /*
@@ -28,10 +28,10 @@ Route::get('/hello', function () {
 
 
 Route::get('/openapi_test', function () {
-
-
+    // tokenAndShop cookies are generated when the installation is complete
     $tokenAndStop= $_COOKIE["tokenAndShop"];
     parse_str($tokenAndStop, $tokenAndStop_arr);
+    
     if (empty($tokenAndStop_arr['access_token'])){
         header('HTTP/1.1 400 NOT FOUND');
         echo json_encode(array(
@@ -40,7 +40,16 @@ Route::get('/openapi_test', function () {
         ));
         exit();
     }
+
     $http = new Client;
+
+    // Rely on cookies to request store information for testing effect
+    $headers = [
+        'Accept'=>'application/json',
+        'Access-Token'=>$tokenAndStop_arr['access_token'],
+    ];
+    var_dump($tokenAndStop_arr['access_token'] );
+
     $req = $http->request("GET",'https://'.$tokenAndStop_arr['shop'].'/openapi/2020-07/shop',[
         'headers'=>[
             'Accept'=>'application/json',
@@ -50,6 +59,17 @@ Route::get('/openapi_test', function () {
     var_dump($req);
 });
 
+// Build the route for the auth request
+Route::get('/oauth_sdk/app_uri', function () {
+    $middleware = new Oauth2Middleware(
+        env('CLIENT_ID'), 
+        env('CLIENT_SECRET'), 
+        env('REDIRECT_URL'), 
+        [ "read_shop" ],
+    );
+
+    return redirect()->away($middleware->OauthRequest());
+});
 
 
 //Route::get('/oauth_sdk/app_uri',function ( ){
