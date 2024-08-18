@@ -1,10 +1,9 @@
 <?php
 
-
 namespace  PHPShoplazza;
 require 'Oauth2.php';
 
-
+use Illuminate\Support\Facades\Log;
 
 class Oauth2Middleware extends oauth2
 {
@@ -15,7 +14,6 @@ class Oauth2Middleware extends oauth2
     );
     static public $ExpirationTime = 3*24*60*60;
     static public $EndpointError = "OAuth endpoint is not a myshoplazza site.";
-
 
     public  $requestPath= "/oauth_sdk/app_uri"  ;
     public  $callbackPath ="/oauth_sdk/redirect_uri/";
@@ -30,8 +28,8 @@ class Oauth2Middleware extends oauth2
             "AuthURL" => "/admin/oauth/authorize",
             "TokenURL" => "/admin/oauth/token",),
         string $requestPath = "/oauth_sdk/app_uri" ,
-        string $callbackPath ="/oauth_sdk/redirect_uri/" )
-    {
+        string $callbackPath ="/oauth_sdk/redirect_uri/" 
+    ){
         $this->requestPath = $requestPath;
         $this->callbackPath = $callbackPath;
         parent::__construct(
@@ -40,30 +38,36 @@ class Oauth2Middleware extends oauth2
             $RedirectURI,
             $Scopes,
             $Domain,
-            $Endpoint);
+            $Endpoint
+        );
     }
 
     //OauthRequest 
-    public  function OauthRequest(){
+    public function OauthRequest() {
 
         //Get the QUERY_STRING
         if (empty($_SERVER['QUERY_STRING'])) {
             
             $this->exceptionInfo(400,self::$EndpointError);
         }
+
         //Query parameters are converted to arrays
         parse_str($_SERVER['QUERY_STRING'],$query_arr);
+
+        Log::info('New Auth Request from ' . $query_arr["shop"]);
+
         //Verify the store
-        if  ( $this->ValidShop($query_arr["shop"])) {
+        if  ($this->ValidShop($query_arr["shop"])) {
             
             $this->exceptionInfo(400,self::$EndpointError);
-
         }
+
         $state = $this->GetRandomString(48);
         $values = array(
             "state"=>$state,
         );
         $values_str = http_build_query($values);
+
         // set state-session
         setcookie('state-session', $values_str, time()+ self::$ExpirationTime);
       
@@ -72,20 +76,22 @@ class Oauth2Middleware extends oauth2
         return $this->AuthCodeUrl($query_arr["shop"],$values);
     }
 
-
     // callback 
-    public  function OauthCallback(){
+    public function OauthCallback() {
 
         //Get the QUERY_STRING
         if (empty($_SERVER['QUERY_STRING'])) {
            
             $this->exceptionInfo(400,"Invalid callback.");
-
         }
+
         //Query parameters are converted to arrays
         parse_str($_SERVER['QUERY_STRING'],$query_arr);
+
+        Log::info('Running OAuth Callback for ' . $query_arr["shop"]);
+
         //Verify the store
-        if  ( $this->ValidShop($query_arr["shop"])) {
+        if ($this->ValidShop($query_arr["shop"])) {
       
             $this->exceptionInfo(400,self::$EndpointError);
         }
@@ -96,20 +102,19 @@ class Oauth2Middleware extends oauth2
         parse_str($stateSession, $state_arr);
 
         if (empty($state_arr['state'])){
-            
-            $this->exceptionInfo(400,"State does not exist in the session.");
 
+            $this->exceptionInfo(400,"State does not exist in the session.");
         }
+
         if( strcasecmp($state_arr['state'],$query_arr['state'])){
            
             $this->exceptionInfo(400,"State does not match.");
-
         }
+
         //Verify hmac
         if (($this->SignatureValid($query_arr['hmac']))){
            
             $this->exceptionInfo(400,"Signature does not match, it may have been tampered with.");
-
         }
 
         // Exchange code for token
@@ -117,7 +122,6 @@ class Oauth2Middleware extends oauth2
         if (empty($tokenO)){
             
             $this->exceptionInfo(400,"failed to get the token .");
-
         }
 
         $token_str = http_build_query($tokenO);
@@ -125,17 +129,11 @@ class Oauth2Middleware extends oauth2
         // set token
         setcookie("oauth2.token",$token_str);
 
-
-
         return array(
             "shop"=> $query_arr["shop"],
             "token" => $tokenO,
         );
-
     }
-
-
-
 
     // Access-token handlers can be refactored
     public  function accessTokenHandlerFunc ( $shop , $token )

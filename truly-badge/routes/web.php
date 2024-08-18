@@ -22,11 +22,37 @@ use PHPShoplazza\Oauth2Middleware;
 Route::get('/', function () {
     return view('welcome');
 });
+
 Route::get('/hello', function () {
     return 'hello worldpanda';
 });
 
+// Build the route for the auth request
+Route::get('/oauth_sdk/app_uri', function () {
+    $middleware = new Oauth2Middleware(
+        env('CLIENT_ID'), 
+        env('CLIENT_SECRET'), 
+        env('REDIRECT_URL'), 
+        [ "read_shop" ],
+    );
 
+    return redirect()->away($middleware->OauthRequest());
+});
+
+// Build the route for the redirect
+Route::get('/oauth_sdk/redirect_uri', function () {
+    $middleware = new Oauth2Middleware(
+        env('CLIENT_ID'), 
+        env('CLIENT_SECRET'), 
+        env('REDIRECT_URL'), 
+        [ "read_shop" ],
+    );
+
+    $middleware->OauthCallback();
+});
+
+
+// ----------------- Test the openapi -----------------
 Route::get('/openapi_test', function () {
     // tokenAndShop cookies are generated when the installation is complete
     $tokenAndStop= $_COOKIE["tokenAndShop"];
@@ -59,54 +85,7 @@ Route::get('/openapi_test', function () {
     var_dump($req);
 });
 
-// Build the route for the auth request
-Route::get('/oauth_sdk/app_uri', function () {
-    $middleware = new Oauth2Middleware(
-        env('CLIENT_ID'), 
-        env('CLIENT_SECRET'), 
-        env('REDIRECT_URL'), 
-        [ "read_shop" ],
-    );
-
-    return redirect()->away($middleware->OauthRequest());
-});
-
-// Build the route for the redirect
-Route::get('/oauth_sdk/redirect_uri', function () {
-    $middleware = new Oauth2Middleware(
-        env('CLIENT_ID'), 
-        env('CLIENT_SECRET'), 
-        env('REDIRECT_URL'), 
-        [ "read_shop" ],
-    );
-
-    $middleware->OauthCallback();
-});
-
-
-//Route::get('/oauth_sdk/app_uri',function ( ){
-//    $middleware = new Oauth2Middleware(
-//        "beECXaQzYZOvr5DgrSw3ntX4lfZOfoJwDtFMX2N0UOc",
-//        "Y9Mo9s4fzRxo23dvzFO8h1v5FX5pp3xYKAqGicDuG70",
-//        "https://2fec-43-230-206-233.ngrok.io/oauth_sdk/redirect_uri/",
-//        array("read_product", "write_product"),
-//    );
-//
-//    return redirect()->away($middleware->OauthRequest());
-//});
-//
-//Route::get('/oauth_sdk/redirect_uri/',function ( ){
-//    $middleware = new Oauth2Middleware(
-//        "beECXaQzYZOvr5DgrSw3ntX4lfZOfoJwDtFMX2N0UOc",
-//        "Y9Mo9s4fzRxo23dvzFO8h1v5FX5pp3xYKAqGicDuG70",
-//        "https://2fec-43-230-206-233.ngrok.io/oauth_sdk/redirect_uri/",
-//        array("read_product", "write_product"),
-//    );
-//
-//    $middleware->OauthCallback();
-//});
-
-
+// ----------------- Demo -----------------
 //Route::domain('')->group(function (){
 //    $middleware = new Oauth2Middleware(
 //        "beECXaQzYZOvr5DgrSw3ntX4lfZOfoJwDtFMX2N0UOc",
@@ -126,8 +105,6 @@ Route::get('/oauth_sdk/redirect_uri', function () {
 //    });
 //
 //});
-
-
 
 //Route::get('/open_api/test',function ( ){
 //
