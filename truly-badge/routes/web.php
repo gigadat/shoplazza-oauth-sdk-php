@@ -71,6 +71,18 @@ Route::get('/oauth_sdk/app_uri', function () {
     return redirect()->away($middleware->OauthRequest());
 });
 
+// Build the route for the redirect
+Route::get('/oauth_sdk/redirect_uri', function () {
+    $middleware = new Oauth2Middleware(
+        env('CLIENT_ID'), 
+        env('CLIENT_SECRET'), 
+        env('REDIRECT_URL'), 
+        [ "read_shop" ],
+    );
+
+    $middleware->OauthCallback();
+});
+
 
 //Route::get('/oauth_sdk/app_uri',function ( ){
 //    $middleware = new Oauth2Middleware(
