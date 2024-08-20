@@ -69,7 +69,12 @@ class Oauth2Middleware extends oauth2
         $values_str = http_build_query($values);
 
         // set state-session
-        setcookie('state-session', $values_str, time()+ self::$ExpirationTime);
+        // setcookie('state-session', $values_str, time()+ self::$ExpirationTime);
+        setcookie('state-session', $values_str, time() + self::$ExpirationTime, '/', '.myshoplaza.com');
+        Log::info('Set state-session cookie for .myshoplaza.com to ' . $values_str);
+
+        setcookie('state-session', $values_str, time() + self::$ExpirationTime, '/', '.trulylegit.com');
+        Log::info('Set state-session cookie for .trulylegit.com to ' . $values_str);
       
         // 302 redirect /admin/oauth/authorize
         // header('Location:'.$this->AuthCodeUrl($query_arr["shop"],$values),true,302);
