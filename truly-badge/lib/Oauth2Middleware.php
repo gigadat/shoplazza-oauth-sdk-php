@@ -77,10 +77,10 @@ class Oauth2Middleware extends oauth2
         ]);
       
         // 302 redirect /admin/oauth/authorize
-        // header('Location:'.$this->AuthCodeUrl($query_arr["shop"],$values),true,302);
-        header('Set-Cookie: state-session='.$values_str.'; SameSite=None; Secure; Expires='.time()+self::$ExpirationTime);
+        header('Location:'.$this->AuthCodeUrl($query_arr["shop"],$values), true, 302);
+        exit;
 
-        return $this->AuthCodeUrl($query_arr["shop"],$values);
+        // return $this->AuthCodeUrl($query_arr["shop"],$values);
     }
 
     // callback 
