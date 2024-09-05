@@ -27,28 +27,31 @@ Route::get('/hello', function () {
     return 'hello worldpanda';
 });
 
-// Build the route for the auth request
-Route::get('/oauth_sdk/app_uri', function () {
-    $middleware = new Oauth2Middleware(
-        env('CLIENT_ID'), 
-        env('CLIENT_SECRET'), 
-        env('REDIRECT_URL'), 
-        [ "read_shop" ],
-    );
+Route::domain(env('APP_DOMAIN'))->group(function (){
+    // Build the route for the auth request
+    Route::get('/oauth_sdk/app_uri', function () {
+        $middleware = new Oauth2Middleware(
+            env('CLIENT_ID'), 
+            env('CLIENT_SECRET'), 
+            env('REDIRECT_URL'), 
+            [ "read_shop" ],
+        );
 
-    return redirect()->away($middleware->OauthRequest());
-});
+        return redirect()->away($middleware->OauthRequest());
+    });
 
-// Build the route for the redirect
-Route::get('/oauth_sdk/redirect_uri', function () {
-    $middleware = new Oauth2Middleware(
-        env('CLIENT_ID'), 
-        env('CLIENT_SECRET'), 
-        env('REDIRECT_URL'), 
-        [ "read_shop" ],
-    );
+    // Build the route for the redirect
+    Route::get('/oauth_sdk/redirect_uri', function () {
+        $middleware = new Oauth2Middleware(
+            env('CLIENT_ID'), 
+            env('CLIENT_SECRET'), 
+            env('REDIRECT_URL'), 
+            [ "read_shop" ],
+        );
 
-    $middleware->OauthCallback();
+        $middleware->OauthCallback();
+        return;
+    });
 });
 
 
