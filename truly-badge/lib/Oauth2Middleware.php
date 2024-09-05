@@ -157,11 +157,15 @@ class Oauth2Middleware extends oauth2
         header("Status: 200 OK");
         http_response_code(200);
 
-        echo json_encode(array(
-            "code"=>200,
-            "message"=>"save access-token success",
-        ));
-        exit(200);
+        // echo json_encode(array(
+        //     "code"=>200,
+        //     "message"=>"save access-token success",
+        // ));
+        // exit(200);
+
+        // redirect to page-test view
+        header('Location:/page-test', true, 302);
+        exit;
 
     }
 

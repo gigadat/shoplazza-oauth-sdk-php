@@ -54,6 +54,11 @@ Route::domain(env('APP_DOMAIN'))->group(function (){
     });
 });
 
+// add a route where user can submit their site id
+Route::get('/page-test', function () {
+    return view('page-test');
+});
+
 
 // ----------------- Test the openapi -----------------
 Route::get('/openapi_test', function () {
