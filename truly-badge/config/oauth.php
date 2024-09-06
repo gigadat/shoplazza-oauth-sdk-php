@@ -4,7 +4,7 @@ return[
     'clientSecret' => env('CLIENT_SECRET'),
     'redirectURL'=> env('REDIRECT_URL'),
     'Scopes' => [
-        "read_product", "write_product","read_shop","write_shop"
+        "read_script_tags", "write_script_tags","read_shop","write_shop"
     ],
     'Endpoint'=>[
         "AuthURL"=>"/admin/oauth/authorize",
