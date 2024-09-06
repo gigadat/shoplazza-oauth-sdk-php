@@ -48,6 +48,8 @@ class TrulyBadgeController extends Controller
     // add badge script to the store
     public function addBadgecript($tokenAndShop_arr) 
     {   
+        Log::info('Adding badge script to store ' . $tokenAndShop_arr['shop']);
+
         // $request->validate([
         //     'shop' => ['string', 'required'],
         //     'access_token' => ['string', 'required'],
@@ -56,19 +58,22 @@ class TrulyBadgeController extends Controller
         $client = new Client();
 
         $postUrl = $tokenAndShop_arr['shop'] . "/openapi/2022-01/script_tags_new";
+        Log::info('postUrl: ' . $postUrl);
         $accessToken = $tokenAndShop_arr['access_token'];
+        Log::info('accessToken: ' . $accessToken);
 
         // $postUrl = $request->input('shop') . "/openapi/2022-01/script_tags_new";
         // $accessToken = $request->input('access_token');
 
         $badgeScriptPath = env('APP_ENV') === 'production' ? "/scripts/trulybadge.js" : "/scripts/trulybadge_qa.js";
         $badgeScriptUrl = env('APP_URL') . $badgeScriptPath;
+        Log::info('badgeScriptUrl: ' . $badgeScriptUrl);
 
         try {
             $response = $client->request('POST', $postUrl, [
                 'body' => json_encode([
-                    'display_scope' => 'online',
-                    'event_type' => 'trulybadge',
+                    'display_scope' => 'index',
+                    'event_type' => 'myapp',
                     'src' => $badgeScriptUrl
                 ]),
                 'headers' => [
