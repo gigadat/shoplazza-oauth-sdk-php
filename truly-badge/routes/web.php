@@ -4,6 +4,7 @@
 
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 use PHPShoplazza\Oauth2Middleware;
 
 
@@ -54,13 +55,14 @@ Route::domain(env('APP_DOMAIN'))->group(function (){
     });
 });
 
-// add a route where user can test the page and see the tokenAndShop cookie
-Route::get('/page-test', function () {
-    $tokenAndShop = $_COOKIE["tokenAndShop"] ?? null;
-    parse_str($tokenAndShop, $tokenAndShop_arr);
+Route::controller(TrulyBadgeController::class)->group(function () {
+    Route::get('/page-test', 'pageTest')->name('page.test');
+    Route::post('/submit-site-id', 'submitSiteId')->name('submit.site.id');
 
-    return view('page-test', ['tokenAndShop' => $tokenAndShop_arr]);
+    Route::get('/badge-script/add', 'addBadgeScript')->name('add.badge.script');
+    Route::get('/badge-script/update', 'updateBadgeScript')->name('update.badge.script');
 });
+
 
 
 // ----------------- Test the openapi -----------------

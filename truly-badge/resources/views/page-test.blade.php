@@ -15,5 +15,21 @@
     @else
         <p>No token and shop details found.</p>
     @endif
+
+    <!-- Enter Site ID -->
+    <h2>Enter Site ID</h2>
+    <form method="POST" action="{{ route('submit.site.id') }}">
+        @csrf
+        <label for="site_id">Site ID:</label><br>
+        <input type="text" id="site_id" name="site_id"><br>
+        <input type="submit" value="Submit">
+    </form>
+
+    <!-- Display site id if it exists -->
+    @if ($siteId)
+        <p>Site ID: {{ $siteId }}</p>
+    @else
+        <p>No site ID found.</p>
+    @endif
 </body>
 </html>
