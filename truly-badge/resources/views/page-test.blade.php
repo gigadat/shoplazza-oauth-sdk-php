@@ -18,7 +18,7 @@
 
     <!-- Enter Site ID -->
     <h2>Enter Site ID</h2>
-    <form method="POST" action="{{ route('submit.site.id') }}">
+    <form method="POST" action="{{ secure_url(route('submit.site.id', [], false)) }}">
         @csrf
         <label for="site_id">Site ID:</label><br>
         <input type="text" id="site_id" name="site_id"><br>
