@@ -40,6 +40,8 @@ class TrulyBadgeController extends Controller
         $tokenAndShop = $_COOKIE["tokenAndShop"] ?? null;
         parse_str($tokenAndShop, $tokenAndShop_arr);
 
+        $request = new Request();
+        $request->merge($tokenAndShop_arr);
         $this->addBadgecript($tokenAndShop_arr);
 
         return redirect()->route('page.test');
