@@ -65,7 +65,7 @@ class TrulyBadgeController extends Controller
         // $postUrl = $request->input('shop') . "/openapi/2022-01/script_tags_new";
         // $accessToken = $request->input('access_token');
 
-        $badgeScriptPath = env('APP_ENV') === 'production' ? "/scripts/trulybadge.js" : "/scripts/trulybadge_qa.js";
+        $badgeScriptPath = env('APP_ENV') === 'production' ? "/js/trulybadge.js" : "/js/trulybadge_qa.js";
         $badgeScriptUrl = env('APP_URL') . $badgeScriptPath;
         Log::info('badgeScriptUrl: ' . $badgeScriptUrl);
 
