@@ -16,7 +16,13 @@ class TrulyBadgeController extends Controller
 
         $siteId = $_COOKIE["siteId"] ?? null;
 
-        return view('page-test', ['tokenAndShop' => $tokenAndShop_arr, 'siteId' => $siteId]);
+        $trulyBadgeResponse = $_COOKIE["trulyBadgeResponse"] ?? null;
+
+        return view('page-test', [
+            'tokenAndShop' => $tokenAndShop_arr, 
+            'siteId' => $siteId,
+            'trulyBadgeResponse' => $trulyBadgeResponse,
+        ]);
     }
 
     // submitSiteId controller
@@ -30,11 +36,23 @@ class TrulyBadgeController extends Controller
 
         setcookie("siteId", $siteId, time() + 3600, '/');
 
+        // get token and shop from cookie and pass shop and access token to addBadgecript method
+        $tokenAndShop = $_COOKIE["tokenAndShop"] ?? null;
+        parse_str($tokenAndShop, $tokenAndShop_arr);
+
+        $this->addBadgecript($tokenAndShop_arr);
+
         return redirect()->route('page.test');
     }
 
     // add badge script to the store
-    public function addBadgecript() {
+    public function addBadgecript(Reqest $request) 
+    {   
+        $request->validate([
+            'shop' => ['string', 'required'],
+            'access_token' => ['string', 'required'],
+        ]);
+
         $client = new Client();
 
         $postUrl = $request->input('shop') . "/openapi/2022-01/script_tags_new";
@@ -59,6 +77,8 @@ class TrulyBadgeController extends Controller
                 
             Log::info('Badge script added successfully for ' . $postUrl);
             Log::info($response->getBody());
+
+            setcookie("trulyBadgeResponse", $response->getBody(), time() + 3600, '/');
         } catch (\Exception $e) {
             Log::error('Badge script add failed for ' . $postUrl . ': ' . $e->getMessage());
         }
