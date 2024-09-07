@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Log;
 
 class TrulyBadgeController extends Controller
 {
-    // pageTest controller
+    // test plugin functionality
     public function pageTest()
     {
         $tokenAndShop = $_COOKIE["tokenAndShop"] ?? null;
@@ -25,7 +25,7 @@ class TrulyBadgeController extends Controller
         ]);
     }
 
-    // submitSiteId controller
+    // handle site id submission
     public function submitSiteId(Request $request)
     {
         $request->validate([
@@ -48,32 +48,21 @@ class TrulyBadgeController extends Controller
     // add badge script to the store
     public function addBadgecript($tokenAndShop_arr, $siteId) 
     {   
-        Log::info('Adding badge script to store ' . $tokenAndShop_arr['shop']);
-
-        // $request->validate([
-        //     'shop' => ['string', 'required'],
-        //     'access_token' => ['string', 'required'],
-        // ]);
+        Log::info('Adding badge script to store ' . $tokenAndShop_arr['shop'] . ' with site id ' . $siteId);
 
         $client = new Client();
 
         $postUrl = "https://" . $tokenAndShop_arr['shop'] . "/openapi/2022-01/script_tags_new";
-        Log::info('postUrl: ' . $postUrl);
         $accessToken = $tokenAndShop_arr['access_token'];
-        Log::info('accessToken: ' . $accessToken);
-
-        // $postUrl = $request->input('shop') . "/openapi/2022-01/script_tags_new";
-        // $accessToken = $request->input('access_token');
 
         // if site id exists, add query parameter to badgeScriptPath
         $badgeScriptPath = env('APP_ENV') === 'production' ? "/js/trulybadge.js" : "/js/trulybadge_qa.js";
         if ($siteId) {
             $badgeScriptPath .= '?siteId=' . $siteId;
         }
-        
         $badgeScriptUrl = env('APP_URL') . $badgeScriptPath;
-        Log::info('badgeScriptUrl: ' . $badgeScriptUrl);
 
+        // use script_tag request to add badge script to store
         try {
             $response = $client->request('POST', $postUrl, [
                 'body' => json_encode([
@@ -89,6 +78,7 @@ class TrulyBadgeController extends Controller
             ]);
                 
             Log::info('Badge script added successfully for ' . $postUrl);
+            Log::info($response->getStatusCode());
             Log::info($response->getBody());
 
             setcookie("trulyBadgeResponse", $response->getBody(), time() + 3600, '/');
