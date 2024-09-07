@@ -42,23 +42,21 @@ class Oauth2Middleware extends oauth2
         );
     }
 
-    //OauthRequest 
+    // OauthRequest 
     public function OauthRequest() {
 
-        //Get the QUERY_STRING
+        // Get the QUERY_STRING
         if (empty($_SERVER['QUERY_STRING'])) {
-            
             $this->exceptionInfo(400,self::$EndpointError);
         }
 
-        //Query parameters are converted to arrays
+        // Query parameters are converted to arrays
         parse_str($_SERVER['QUERY_STRING'],$query_arr);
 
         Log::info('New Auth Request from ' . $query_arr["shop"]);
 
-        //Verify the store
-        if  ($this->ValidShop($query_arr["shop"])) {
-            
+        // Verify the store
+        if ($this->ValidShop($query_arr["shop"])) {
             $this->exceptionInfo(400,self::$EndpointError);
         }
 
@@ -75,8 +73,6 @@ class Oauth2Middleware extends oauth2
             'Secure' => true,
             'Expires' => time() + self::$ExpirationTime,
         ]);
-
-        // header('Set-Cookie: state-session='.$values_str.'; SameSite=Lax; Secure; Expires='.time()+self::$ExpirationTime.'; Path=/');
       
         // 302 redirect /admin/oauth/authorize
         header('Location:'.$this->AuthCodeUrl($query_arr["shop"],$values), true, 302);
@@ -88,20 +84,18 @@ class Oauth2Middleware extends oauth2
     // callback 
     public function OauthCallback() {
 
-        //Get the QUERY_STRING
+        // Get the QUERY_STRING
         if (empty($_SERVER['QUERY_STRING'])) {
-           
             $this->exceptionInfo(400,"Invalid callback.");
         }
 
-        //Query parameters are converted to arrays
+        // Query parameters are converted to arrays
         parse_str($_SERVER['QUERY_STRING'],$query_arr);
 
         Log::info('Running OAuth Callback for ' . $query_arr["shop"]);
 
-        //Verify the store
+        // Verify the store
         if ($this->ValidShop($query_arr["shop"])) {
-      
             $this->exceptionInfo(400,self::$EndpointError);
         }
 
@@ -111,25 +105,21 @@ class Oauth2Middleware extends oauth2
         parse_str($stateSession, $state_arr);
 
         if (empty($state_arr['state'])){
-
             $this->exceptionInfo(400,"State does not exist in the session.");
         }
 
-        if( strcasecmp($state_arr['state'],$query_arr['state'])){
-           
+        if( strcasecmp($state_arr['state'],$query_arr['state'])){ 
             $this->exceptionInfo(400,"State does not match.");
         }
 
-        //Verify hmac
+        // Verify hmac
         if (($this->SignatureValid($query_arr['hmac']))){
-           
             $this->exceptionInfo(400,"Signature does not match, it may have been tampered with.");
         }
 
         // Exchange code for token
         $tokenO = $this->Exchange($query_arr["shop"],$query_arr["code"]);
         if (empty($tokenO)){
-            
             $this->exceptionInfo(400,"failed to get the token .");
         }
 
@@ -144,10 +134,10 @@ class Oauth2Middleware extends oauth2
         );
     }
 
-    // Access-token handlers can be refactored
-    public  function accessTokenHandlerFunc ( $shop , $token )
+    // Access-token handler
+    public function accessTokenHandlerFunc( $shop , $token )
     {
-        //The token can also be stored in db
+        // The token can also be stored in db
         $token["shop"] = $shop;
         $token_str = http_build_query($token);
 
@@ -157,19 +147,12 @@ class Oauth2Middleware extends oauth2
         header("Status: 200 OK");
         http_response_code(200);
 
-        // echo json_encode(array(
-        //     "code"=>200,
-        //     "message"=>"save access-token success",
-        // ));
-        // exit(200);
-
         // redirect to page-test view
         header('Location:/page-test', true, 302);
         exit;
-
     }
 
-    private  static function   GetRandomString(int $len = 48):string
+    private  static function GetRandomString(int $len = 48):string
     {
         $chars = array(
             "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k",
@@ -188,7 +171,7 @@ class Oauth2Middleware extends oauth2
         return $output;
     }
 
-    public function  exceptionInfo($errorCode,$errorMsg) 
+    public function exceptionInfo($errorCode,$errorMsg) 
     {
         header(self::$httpErrorCode[$errorCode]);
         echo json_encode(array(
