@@ -3,6 +3,8 @@
 
     var siteId = new URLSearchParams(window.location.search).get('siteId');
 
+    console.log('siteId found: ', siteId);
+    
     script.src = 'https://kmgu6d1qxk.execute-api.us-east-2.amazonaws.com/test/api/tlv1?siteId=' + siteId;
     script.async = true;
 
