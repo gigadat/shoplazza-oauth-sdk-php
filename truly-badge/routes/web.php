@@ -58,8 +58,6 @@ Route::domain(env('APP_DOMAIN'))->group(function (){
 Route::controller(TrulyBadgeController::class)->group(function () {
     Route::get('/page-test', 'pageTest')->name('page.test');
     Route::post('/submit-site-id', 'submitSiteId')->name('submit.site.id');
-
-    Route::get('/badge-script/add', 'addBadgeScript')->name('add.badge.script');
 });
 
 

@@ -36,17 +36,25 @@ class TrulyBadgeController extends Controller
 
         setcookie("siteId", $siteId, time() + 3600, '/');
 
-        // get token and shop from cookie and pass shop and access token to addBadgecript method
+        // get token and shop from cookie and pass shop and access token to addBadgescript method
         $tokenAndShop = $_COOKIE["tokenAndShop"] ?? null;
         parse_str($tokenAndShop, $tokenAndShop_arr);
 
-        $this->addBadgecript($tokenAndShop_arr, $siteId);
+        // check if scriptTagId exists in cookie
+        $scriptTagId = $_COOKIE["scriptTagId"] ?? null;
+
+        // if scriptTagId exists, use PUT request to update badge script
+        if ($scriptTagId) {
+            $this->updateBadgeScript($tokenAndShop_arr, $siteId);
+        } else {
+            $this->addBadgeScript($tokenAndShop_arr, $siteId, $scriptTagId);
+        }
 
         return redirect()->route('page.test');
     }
 
     // add badge script to the store
-    public function addBadgecript($tokenAndShop_arr, $siteId) 
+    public function addBadgeScript($tokenAndShop_arr, $siteId) 
     {   
         Log::info('Adding badge script to store ' . $tokenAndShop_arr['shop'] . ' with site id ' . $siteId);
 
@@ -93,8 +101,42 @@ class TrulyBadgeController extends Controller
         }
     }
 
-    // add site id to store's badge script
-    public function updateBadgeScript(Request $request) {
+    // update badge script in the store
+    public function updateBadgeScript($tokenAndShop_arr, $siteId, $scriptTagId) {
+        Log::info('Updating badge script for store ' . $tokenAndShop_arr['shop'] . ' with site id ' . $siteId);
 
+        $client = new Client();
+
+        $putUrl = "https://" . $tokenAndShop_arr['shop'] . "/openapi/2022-01/script_tags_new/" . $scriptTagId;
+        $accessToken = $tokenAndShop_arr['access_token'];
+
+        // if site id exists, add query parameter to badgeScriptPath
+        $badgeScriptPath = env('APP_ENV') === 'production' ? "/js/trulybadge.js" : "/js/trulybadge_qa.js";
+        if ($siteId) {
+            $badgeScriptPath .= '?siteId=' . $siteId;
+        }
+        $badgeScriptUrl = env('APP_URL') . $badgeScriptPath;
+
+        // use script_tag request to add badge script to store
+        try {
+            $response = $client->request('PUT', $putUrl, [
+                'body' => json_encode([
+                    'src' => $badgeScriptUrl
+                ]),
+                'headers' => [
+                    'accept' => 'application/json',
+                    'access-token' => $accessToken,
+                    'content-type' => 'application/json',
+                ],
+            ]);
+
+            if ($response->getStatusCode() == 200) {
+                Log::info('Badge script updated successfully for ' . $requestUrl);
+            } else {
+                Log::error('Badge script update failed for ' . $requestUrl);
+            }
+        } catch (\Exception $e) {
+            Log::error('Badge script update failed for ' . $requestUrl . ': ' . $e->getMessage());
+        }
     }
 }
