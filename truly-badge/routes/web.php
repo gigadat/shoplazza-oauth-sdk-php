@@ -60,7 +60,6 @@ Route::controller(TrulyBadgeController::class)->group(function () {
     Route::post('/submit-site-id', 'submitSiteId')->name('submit.site.id');
 
     Route::get('/badge-script/add', 'addBadgeScript')->name('add.badge.script');
-    Route::get('/badge-script/update', 'updateBadgeScript')->name('update.badge.script');
 });
 
 
@@ -97,30 +96,5 @@ Route::get('/openapi_test', function () {
     ]);
     var_dump($req);
 });
-
-// ----------------- Demo -----------------
-//Route::domain('')->group(function (){
-//    $middleware = new Oauth2Middleware(
-//        "beECXaQzYZOvr5DgrSw3ntX4lfZOfoJwDtFMX2N0UOc",
-//        "Y9Mo9s4fzRxo23dvzFO8h1v5FX5pp3xYKAqGicDuG70",
-//        "https://2fec-43-230-206-233.ngrok.io/oauth_sdk/redirect_uri/",
-//        array("read_product", "write_product"),
-//    );
-//
-//    Route::get($middleware->requestPath,function($middleware){
-//        return redirect()->away($middleware->OauthRequest());
-//    });
-//
-//    Route::get($middleware->callbackPath,function ($middleware  ){
-//
-//        $middleware->OauthCallback();
-//        return;
-//    });
-//
-//});
-
-//Route::get('/open_api/test',function ( ){
-//
-//});
 
 
