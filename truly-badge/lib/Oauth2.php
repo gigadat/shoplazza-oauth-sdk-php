@@ -9,29 +9,32 @@ define("DefaultDomain",     "myshoplaza.com");
 
 class Oauth2
 {
-
     //clientID
     public string $ClientID ;
+
     //ClientSecret
     public string $ClientSecret;
+
     //RedirectURI
     public string $RedirectURI = "https://app.com/auth/shoplazza/callback";
-    public array $Endpoint =array(
-    "AuthURL"=>"/admin/oauth/authorize",
-    "TokenURL"=>"/admin/oauth/token",
+
+    public array $Endpoint =array (
+        "AuthURL"=>"/admin/oauth/authorize",
+        "TokenURL"=>"/admin/oauth/token",
     );
+
     //Specify the scope of permissions required
     public array $Scopes;
     public string $Domain;
 
 
-    public function __construct(
+    public function __construct (
         string $ClientID,
         string $ClientSecret,
         string $RedirectURI,
         array  $Scopes,
         string $Domain = "myshoplaza.com",
-        array $Endpoint = array(
+        array $Endpoint = array (
             "AuthURL"=>"/admin/oauth/authorize",
             "TokenURL"=>"/admin/oauth/token",
         )
@@ -51,9 +54,9 @@ class Oauth2
      * @param mixed ...$numbers
      * @return array
      */
-    public  function Exchange(string $shop, string $code,...$numbers):array
+    public function Exchange(string $shop, string $code,...$numbers):array
     {
-        $value  = array(
+        $value = array(
             "grant_type" => "authorization_code",
             "code" => $code,
         );
@@ -76,9 +79,8 @@ class Oauth2
     * @param mixed ...$numbers
     * @return token
     */
-    public  function RefreshToken(string $shop, string $token,...$numbers):array
+    public function RefreshToken(string $shop, string $token,...$numbers):array
     {
-
         $value  = array(
             "grant_type" => "refresh_token",
             "refresh_token" => $token,
@@ -88,7 +90,7 @@ class Oauth2
             $value[$key] = $val;
         }
 
-         return $this->retrieveToken($shop ,$value);
+        return $this->retrieveToken($shop ,$value);
     }
 
     /**
@@ -111,7 +113,7 @@ class Oauth2
      * @param array $value parameters
      * @return  string   Url of the authentication code
      */
-    public  function AuthCodeUrl(string $shop, array $value,...$numbers)
+    public function AuthCodeUrl(string $shop, array $value,...$numbers)
     {
         $authUrl  = 'https://'.$shop.$this->Endpoint["AuthURL"];
         $value['response_type'] = "code";
@@ -144,19 +146,17 @@ class Oauth2
 
         return false;
     }
-    public  function SignatureValid($hmac ) :bool{
 
-
+    public function SignatureValid($hmac ):bool
+    {
         $signature = base64_encode(hash_hmac('sha256', $this->ClientSecret, true));
 
         if ($hmac === $signature) {
             return true;
         }
 
-
         return  false;
     }
-
 
     /** Method of obtaining token
      *
@@ -168,7 +168,6 @@ class Oauth2
      */
     public  static function GetAccessToken(string $tokenURL,string $clientID,string $clientSecret, array $urlValue):array
     {
-
         if (!empty($clientID)){
             $urlValue["client_id"] = $clientID ;
         }
@@ -177,10 +176,8 @@ class Oauth2
             $urlValue["client_secret"] = $clientSecret ;
         }
 
-
-
         $http_header = array(
-//            "Content-Type"=>"application/x-www-form-urlencoded",
+            // "Content-Type"=>"application/x-www-form-urlencoded",
         );
 
         $response = HttpRequestJson::post($tokenURL, $urlValue,$http_header);
