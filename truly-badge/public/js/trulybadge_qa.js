@@ -1,14 +1,17 @@
 (function () {
     var script = document.createElement('script');
 
-    var scripts = document.getElementsByTagName('script');
-    let siteId = null;
-    for (let i = 0; i < scripts.length; i++) {
-        if (scripts[i].src.includes('trulybadge_qa.js')) {
-            siteId = new URLSearchParams(scripts[i].src.split('?')[1]).get('siteId');
-            break;
-        }
-    }
+    // var scripts = document.getElementsByTagName('script');
+    // let siteId = null;
+    // for (let i = 0; i < scripts.length; i++) {
+    //     if (scripts[i].src.includes('trulybadge_qa.js')) {
+    //         siteId = new URLSearchParams(scripts[i].src.split('?')[1]).get('siteId');
+    //         break;
+    //     }
+    // }
+    const scripts = Array.from(document.getElementsByTagName('script'));
+    const trulyBadgeScript = scripts.find(s => s.src.includes('trulybadge_qa.js'));
+    const siteId = trulyBadgeScript ? new URLSearchParams(new URL(trulyBadgeScript.src).search).get('siteId') : null;
 
     console.log('siteId found: ', siteId);
     
