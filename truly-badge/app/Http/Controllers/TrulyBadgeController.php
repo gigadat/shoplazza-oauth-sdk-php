@@ -131,12 +131,12 @@ class TrulyBadgeController extends Controller
             ]);
 
             if ($response->getStatusCode() == 200) {
-                Log::info('Badge script updated successfully for ' . $requestUrl);
+                Log::info('Badge script updated successfully for ' . $putUrl);
             } else {
-                Log::error('Badge script update failed for ' . $requestUrl);
+                Log::error('Badge script update failed for ' . $putUrl);
             }
         } catch (\Exception $e) {
-            Log::error('Badge script update failed for ' . $requestUrl . ': ' . $e->getMessage());
+            Log::error('Badge script update failed for ' . $putUrl . ': ' . $e->getMessage());
         }
     }
 }
