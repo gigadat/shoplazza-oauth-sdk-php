@@ -76,12 +76,18 @@ class TrulyBadgeController extends Controller
                     'content-type' => 'application/json',
                 ],
             ]);
-                
-            Log::info('Badge script added successfully for ' . $postUrl);
-            Log::info($response->getStatusCode());
-            Log::info($response->getBody());
 
-            setcookie("trulyBadgeResponse", $response->getBody(), time() + 3600, '/');
+            if ($response->getStatusCode() == 200) {
+                Log::info('Badge script added successfully for ' . $postUrl);
+
+                // get script_tag id from response and store in cookie
+                $scriptTagId = json_decode($response->getBody())->script_tag->id;
+                setcookie("scriptTagId", $scriptTagId, time() + 3600, '/');
+
+                setcookie("trulyBadgeResponse", $response->getBody(), time() + 3600, '/');
+            } else {
+                Log::error('Badge script add failed for ' . $postUrl);
+            }
         } catch (\Exception $e) {
             Log::error('Badge script add failed for ' . $postUrl . ': ' . $e->getMessage());
         }
