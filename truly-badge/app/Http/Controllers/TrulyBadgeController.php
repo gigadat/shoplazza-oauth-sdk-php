@@ -45,9 +45,9 @@ class TrulyBadgeController extends Controller
 
         // if scriptTagId exists, use PUT request to update badge script
         if ($scriptTagId) {
-            $this->updateBadgeScript($tokenAndShop_arr, $siteId);
+            $this->updateBadgeScript($tokenAndShop_arr, $siteId, $scriptTagId);
         } else {
-            $this->addBadgeScript($tokenAndShop_arr, $siteId, $scriptTagId);
+            $this->addBadgeScript($tokenAndShop_arr, $siteId);
         }
 
         return redirect()->route('page.test');
