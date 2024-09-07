@@ -32,14 +32,10 @@
         <p>No site ID found.</p>
     @endif
 
-    <!-- Display Truly Badge Response -->
+    <!-- Display Truly Badge Response string -->
     @if ($trulyBadgeResponse)
         <h2>Truly Badge Response</h2>
-        <ul>
-            @foreach ($trulyBadgeResponse as $key => $value)
-                <li>{{ $key }}: {{ $value }}</li>
-            @endforeach
-        </ul>
+        <p>{{ $trulyBadgeResponse }}</p>
     @else
         <p>No Truly Badge response found.</p>
     @endif

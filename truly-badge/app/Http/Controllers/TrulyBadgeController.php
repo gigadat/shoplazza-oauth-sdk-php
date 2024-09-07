@@ -72,8 +72,8 @@ class TrulyBadgeController extends Controller
         try {
             $response = $client->request('POST', $postUrl, [
                 'body' => json_encode([
-                    'display_scope' => 'index',
-                    'event_type' => 'myapp',
+                    'display_scope' => 'online',
+                    'event_type' => 'trulybadge',
                     'src' => $badgeScriptUrl
                 ]),
                 'headers' => [
