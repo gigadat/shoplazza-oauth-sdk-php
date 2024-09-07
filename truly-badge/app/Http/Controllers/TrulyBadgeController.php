@@ -40,13 +40,13 @@ class TrulyBadgeController extends Controller
         $tokenAndShop = $_COOKIE["tokenAndShop"] ?? null;
         parse_str($tokenAndShop, $tokenAndShop_arr);
 
-        $this->addBadgecript($tokenAndShop_arr);
+        $this->addBadgecript($tokenAndShop_arr, $siteId);
 
         return redirect()->route('page.test');
     }
 
     // add badge script to the store
-    public function addBadgecript($tokenAndShop_arr) 
+    public function addBadgecript($tokenAndShop_arr, $siteId) 
     {   
         Log::info('Adding badge script to store ' . $tokenAndShop_arr['shop']);
 
@@ -64,8 +64,6 @@ class TrulyBadgeController extends Controller
 
         // $postUrl = $request->input('shop') . "/openapi/2022-01/script_tags_new";
         // $accessToken = $request->input('access_token');
-
-        $siteId = $_COOKIE["siteId"] ?? null;
 
         // if site id exists, add query parameter to badgeScriptPath
         $badgeScriptPath = env('APP_ENV') === 'production' ? "/js/trulybadge.js" : "/js/trulybadge_qa.js";
