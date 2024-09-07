@@ -1,26 +1,17 @@
 (function () {
     var script = document.createElement('script');
 
-    var siteId = new URLSearchParams(window.location.search).get('siteId');
-
-    // get siteId from cookie
-    if (!siteId) {
-        console.log('siteId not found in query string, checking cookies');
-        
-        var cookies = document.cookie.split(';');
-        console.log('cookies: ', cookies);
-
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = cookies[i].split('=');
-            if (cookie[0].trim() === 'siteId') {
-                siteId = cookie[1];
-                break;
-            }
+    var scripts = document.getElementsByTagName('script');
+    let siteId = null;
+    for (let i = 0; i < scripts.length; i++) {
+        if (scripts[i].src.includes('trulybadge_qa.js')) {
+            siteId = new URLSearchParams(scripts[i].src.split('?')[1]).get('siteId');
+            break;
         }
     }
 
     console.log('siteId found: ', siteId);
-
+    
     script.src = 'https://kmgu6d1qxk.execute-api.us-east-2.amazonaws.com/test/api/tlv1?siteId=' + siteId;
     script.async = true;
 
