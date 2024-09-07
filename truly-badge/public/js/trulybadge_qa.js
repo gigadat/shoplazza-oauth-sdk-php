@@ -5,7 +5,11 @@
 
     // get siteId from cookie
     if (!siteId) {
+        console.log('siteId not found in query string, checking cookies');
+        
         var cookies = document.cookie.split(';');
+        console.log('cookies: ', cookies);
+
         for (var i = 0; i < cookies.length; i++) {
             var cookie = cookies[i].split('=');
             if (cookie[0].trim() === 'siteId') {
