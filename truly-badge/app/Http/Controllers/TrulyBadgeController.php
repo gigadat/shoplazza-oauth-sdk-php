@@ -57,7 +57,7 @@ class TrulyBadgeController extends Controller
 
         $client = new Client();
 
-        $postUrl = $tokenAndShop_arr['shop'] . "/openapi/2022-01/script_tags_new";
+        $postUrl = "https://" . $tokenAndShop_arr['shop'] . "/openapi/2022-01/script_tags_new";
         Log::info('postUrl: ' . $postUrl);
         $accessToken = $tokenAndShop_arr['access_token'];
         Log::info('accessToken: ' . $accessToken);
