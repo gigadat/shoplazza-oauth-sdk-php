@@ -5,9 +5,16 @@ namespace App\Http\Controllers;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Inertia\Inertia;
 
 class TrulyBadgeController extends Controller
 {
+    // plugin installation page
+    public function index()
+    {
+        return Inertia::render('TrulyBadge/Index');
+    }
+
     // test plugin functionality
     public function pageTest()
     {

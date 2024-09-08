@@ -2,9 +2,11 @@
 
 // require '../lib/Oauth2Middleware.php';
 
+use App\Http\Controllers\TrulyBadgeController;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 use PHPShoplazza\Oauth2Middleware;
 
 
@@ -18,11 +20,6 @@ use PHPShoplazza\Oauth2Middleware;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Route::get('/hello', function () {
     return 'hello worldpanda';
@@ -56,6 +53,8 @@ Route::domain(env('APP_DOMAIN'))->group(function (){
 });
 
 Route::controller(TrulyBadgeController::class)->group(function () {
+    Route::get('/', 'index')->name('index');
+
     Route::get('/page-test', 'pageTest')->name('page.test');
     Route::post('/submit-site-id', 'submitSiteId')->name('submit.site.id');
 });
