@@ -55,6 +55,10 @@ Route::domain(env('APP_DOMAIN'))->group(function (){
 Route::controller(TrulyBadgeController::class)->group(function () {
     Route::get('/', 'index')->name('index');
 
+    Route::get('/philip-test', function () {
+        return Inertia::render('PhilipTest');
+    });
+
     Route::get('/page-test', 'pageTest')->name('page.test');
     Route::post('/submit-site-id', 'submitSiteId')->name('submit.site.id');
 });
