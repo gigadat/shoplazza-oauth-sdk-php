@@ -52,12 +52,12 @@ Route::domain(env('APP_DOMAIN'))->group(function (){
     });
 });
 
+Route::get('/philip-test', function () {
+    return Inertia::render('PhilipTest');
+});
+
 Route::controller(TrulyBadgeController::class)->group(function () {
     Route::get('/', 'index')->name('index');
-
-    Route::get('/philip-test', function () {
-        return Inertia::render('PhilipTest');
-    });
 
     Route::get('/page-test', 'pageTest')->name('page.test');
     Route::post('/submit-site-id', 'submitSiteId')->name('submit.site.id');
@@ -66,36 +66,36 @@ Route::controller(TrulyBadgeController::class)->group(function () {
 
 
 // ----------------- Test the openapi -----------------
-Route::get('/openapi_test', function () {
-    // tokenAndShop cookies are generated when the installation is complete
-    $tokenAndStop= $_COOKIE["tokenAndShop"];
-    parse_str($tokenAndStop, $tokenAndStop_arr);
+// Route::get('/openapi_test', function () {
+//     // tokenAndShop cookies are generated when the installation is complete
+//     $tokenAndStop= $_COOKIE["tokenAndShop"];
+//     parse_str($tokenAndStop, $tokenAndStop_arr);
     
-    if (empty($tokenAndStop_arr['access_token'])){
-        header('HTTP/1.1 400 NOT FOUND');
-        echo json_encode(array(
-            "code"=>400,
-            "message"=>"access_token Not found ",
-        ));
-        exit();
-    }
+//     if (empty($tokenAndStop_arr['access_token'])){
+//         header('HTTP/1.1 400 NOT FOUND');
+//         echo json_encode(array(
+//             "code"=>400,
+//             "message"=>"access_token Not found ",
+//         ));
+//         exit();
+//     }
 
-    $http = new Client;
+//     $http = new Client;
 
-    // Rely on cookies to request store information for testing effect
-    $headers = [
-        'Accept'=>'application/json',
-        'Access-Token'=>$tokenAndStop_arr['access_token'],
-    ];
-    var_dump($tokenAndStop_arr['access_token'] );
+//     // Rely on cookies to request store information for testing effect
+//     $headers = [
+//         'Accept'=>'application/json',
+//         'Access-Token'=>$tokenAndStop_arr['access_token'],
+//     ];
+//     var_dump($tokenAndStop_arr['access_token'] );
 
-    $req = $http->request("GET",'https://'.$tokenAndStop_arr['shop'].'/openapi/2020-07/shop',[
-        'headers'=>[
-            'Accept'=>'application/json',
-            'Access-Token'=>$tokenAndStop_arr['access_token']
-        ]
-    ]);
-    var_dump($req);
-});
+//     $req = $http->request("GET",'https://'.$tokenAndStop_arr['shop'].'/openapi/2020-07/shop',[
+//         'headers'=>[
+//             'Accept'=>'application/json',
+//             'Access-Token'=>$tokenAndStop_arr['access_token']
+//         ]
+//     ]);
+//     var_dump($req);
+// });
 
 

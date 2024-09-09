@@ -17,6 +17,6 @@
     <body class="font-sans antialiased h-full">
         @inertia
 
-        <div id="app" class="h-full" data-page="{{ json_encode($page) }}"></div>
+        <div id="app" data-page="{{ json_encode($page) }}"></div>
     </body>
 </html>
