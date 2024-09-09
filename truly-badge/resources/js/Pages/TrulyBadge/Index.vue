@@ -15,10 +15,15 @@
                 <div class="pt-20">
                     <TrulyLogo width="350" />
                 </div>
-                <div class="py-20 text-black text-5xl">
-                    Title
+                <div class="pt-20 text-black text-5xl flex flex-col">
+                    <div class="text-gray-900">
+                        Welcome To
+                    </div>
+                    <div class="text-blue-custom">
+                        Truly Legit.
+                    </div>
                 </div>
-                <div class="py-10 text-black text-2xl">
+                <div class="py-6 text-black text-2xl">
                     Subtitle
                 </div>
                 <div class="py-10 text-black text-lg w-fit">
