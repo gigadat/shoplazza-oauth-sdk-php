@@ -3,9 +3,9 @@ import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
-    base: 'https://dev-truly-badge-sp.trulylegit.com/',
+    base: '/',
     build: {
-        assetsDir: 'https://dev-truly-badge-sp.trulylegit.com/build/assets/',
+        assetsDir: 'assets',
     },
     plugins: [
         laravel([
