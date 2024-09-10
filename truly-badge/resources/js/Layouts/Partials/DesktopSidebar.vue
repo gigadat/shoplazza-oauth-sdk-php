@@ -90,7 +90,7 @@
 
                 <div 
                     v-if="sidebarExpnaded"
-                    class="py-10 text-black text-lg w-full px-2"
+                    class="text-black text-lg w-full px-8"
                 >
                     <TrulyLink />
                 </div>
