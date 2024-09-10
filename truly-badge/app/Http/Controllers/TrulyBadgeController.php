@@ -24,7 +24,45 @@ class TrulyBadgeController extends Controller
     // plugin badges page
     public function badges()
     {
-        return Inertia::render('TrulyBadge/Badges/Index');
+        $tokenAndShop = $_COOKIE["tokenAndShop"] ?? null;
+        parse_str($tokenAndShop, $tokenAndShop_arr);
+
+        $siteId = $_COOKIE["siteId"] ?? null;
+
+        $trulyBadgeResponse = $_COOKIE["trulyBadgeResponse"] ?? null;
+
+        return Inertia::render('TrulyBadge/Badges/Index', [
+            'tokenAndShop' => $tokenAndShop_arr, 
+            'siteId' => $siteId,
+            'trulyBadgeResponse' => $trulyBadgeResponse,
+        ]);
+    }
+
+    public function update(Request $request)
+    {
+        $request->validate([
+            'siteId' => ['string', 'required', 'uuid'],
+        ]);
+
+        $siteId = $request->input('siteId');
+
+        setcookie("siteId", $siteId, time() + 3600, '/');
+
+        // get token and shop from cookie and pass shop and access token to addBadgescript method
+        $tokenAndShop = $_COOKIE["tokenAndShop"] ?? null;
+        parse_str($tokenAndShop, $tokenAndShop_arr);
+
+        // check if scriptTagId exists in cookie
+        $scriptTagId = $_COOKIE["scriptTagId"] ?? null;
+
+        // if scriptTagId exists, use PUT request to update badge script
+        if ($scriptTagId) {
+            $this->updateBadgeScript($tokenAndShop_arr, $siteId, $scriptTagId);
+        } else {
+            $this->addBadgeScript($tokenAndShop_arr, $siteId);
+        }
+
+        return redirect()->route('badges', ['formSubmitted' => true]);
     }
 
     // test plugin functionality
