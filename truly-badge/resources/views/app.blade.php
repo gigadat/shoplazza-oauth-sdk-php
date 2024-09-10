@@ -12,6 +12,9 @@
         <!-- Styles -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+        <!-- Scripts -->
+        @routes
+
         @inertiaHead
     </head>
     <body class="font-sans antialiased h-full">

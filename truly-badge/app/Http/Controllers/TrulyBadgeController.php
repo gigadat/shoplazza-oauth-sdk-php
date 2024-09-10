@@ -9,10 +9,22 @@ use Inertia\Inertia;
 
 class TrulyBadgeController extends Controller
 {
-    // plugin installation page
+    // plugin installation landing page
     public function index()
     {
         return Inertia::render('TrulyBadge/Index');
+    }
+
+    // plugin home page
+    public function home()
+    {
+        return Inertia::render('TrulyBadge/Home/Index');
+    }
+
+    // plugin badges page
+    public function badges()
+    {
+        return Inertia::render('TrulyBadge/Badges/Index');
     }
 
     // test plugin functionality

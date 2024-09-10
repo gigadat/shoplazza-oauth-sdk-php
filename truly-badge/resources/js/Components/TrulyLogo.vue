@@ -31,7 +31,7 @@ const props = defineProps({
         type: String,
         default: 'full',
         validator: (_kind) => {
-            return includes(['logo', 'title', 'full'], _kind);
+            return includes(['logo', 'full'], _kind);
         },
     },
 
@@ -42,9 +42,8 @@ const props = defineProps({
 });
 
 const viewBoxes = {
-    logo: '0 0 111.71 128.99',
-    title: '141.71 46 338.27 37.96',
-    full: '0 0 480.53 128.99',
+    logo: '0 0 56.99 66',
+    full: '0 0 359 66',
 };
 
 const calculatedWidth = computed(() => {

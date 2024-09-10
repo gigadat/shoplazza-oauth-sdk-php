@@ -58,6 +58,8 @@ Route::get('/philip-test', function () {
 
 Route::controller(TrulyBadgeController::class)->group(function () {
     Route::get('/', 'index')->name('index');
+    Route::get('/home', 'home')->name('home');
+    Route::get('/badges', 'badges')->name('badges');
 
     Route::get('/page-test', 'pageTest')->name('page.test');
     Route::post('/submit-site-id', 'submitSiteId')->name('submit.site.id');

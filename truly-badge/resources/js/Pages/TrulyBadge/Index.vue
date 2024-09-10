@@ -28,7 +28,7 @@
                 </div>
                 <div class="py-10 text-black text-lg w-fit">
                     <TrulyLink
-                        href=""
+                        href="/home"
                         :newTab="false"
                         label="Continue"
                     />
