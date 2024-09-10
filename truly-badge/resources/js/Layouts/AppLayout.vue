@@ -23,8 +23,6 @@
             class="flex flex-col transition duration-300 min-h-screen bg-truly"
             :class="sidebarExpnaded ? 'md:pl-64' : 'md:pl-20'"
         >
-            <top-bar :transition-mobile-nav="transitionMobileNav" />
-
             <main class="flex-1">
                 <div class="max-w-auto mx-auto">
                     <!-- Replace with your content -->
