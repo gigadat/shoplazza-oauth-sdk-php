@@ -56,6 +56,7 @@
                             >
                                 Save
                             </button>
+                            <div> TEst Depliy again </div>
                         </div>
                     </div>
                     <div class="col-span-1 bg-gray-900 text-white w-full rounded-2xl px-4 pt-4 pb-10">
