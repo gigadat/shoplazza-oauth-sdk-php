@@ -21,7 +21,7 @@ services:
         volumes:
             - '.:/var/www/html'
         command: >
-            sh -c "
+            bash -c "
                 npm install && 
                 npm run build &&
             "
