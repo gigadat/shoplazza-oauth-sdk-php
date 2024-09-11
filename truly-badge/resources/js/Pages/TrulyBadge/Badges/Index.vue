@@ -94,6 +94,7 @@ function submit() {
             preserveScroll: true,
             onSuccess: () => {
                 formSubmitted = true;
+                form.reset();
             },
         });
     }
