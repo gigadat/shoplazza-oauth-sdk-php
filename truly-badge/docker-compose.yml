@@ -1,7 +1,7 @@
 # For more information: https://laravel.com/docs/sail
 version: '3'
 services:
-    app:
+    laravel.test:
         build:
             context: .
             dockerfile: Dockerfile
@@ -20,11 +20,6 @@ services:
             XDEBUG_CONFIG: '${SAIL_XDEBUG_CONFIG:-client_host=host.docker.internal}'
         volumes:
             - '.:/var/www/html'
-        command: >
-            bash -c "
-                npm install && 
-                npm run build &&
-            "
         networks:
             - sail
         depends_on:
