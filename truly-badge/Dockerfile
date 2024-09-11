@@ -64,9 +64,10 @@ COPY vendor/laravel/sail/runtimes/8.3/php.ini /etc/php/8.3/cli/conf.d/99-sail.in
 RUN chmod +x /usr/local/bin/start-container
 
 COPY . .
-RUN npm install
-RUN npm run build
 
 EXPOSE 80/tcp
 
 ENTRYPOINT ["start-container"]
+
+RUN npm install
+RUN npm run build
