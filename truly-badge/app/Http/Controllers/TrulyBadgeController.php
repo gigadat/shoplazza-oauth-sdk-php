@@ -27,7 +27,7 @@ class TrulyBadgeController extends Controller
         $tokenAndShop = $_COOKIE["tokenAndShop"] ?? null;
         parse_str($tokenAndShop, $tokenAndShop_arr);
 
-        $siteId = $_COOKIE["siteId"] ?? null;
+        $siteId = $_COOKIE["site-id"] ?? null;
 
         $trulyBadgeResponse = $_COOKIE["trulyBadgeResponse"] ?? null;
 
@@ -46,14 +46,20 @@ class TrulyBadgeController extends Controller
 
         $siteId = $request->input('siteId');
 
-        setcookie("siteId", $siteId, time() + 3600, '/');
+        // store siteId in cookie for 1 year
+        $ExpirationTime = 12*31*24*60*60;
+        setcookie('site-id', $siteId, [
+            'SameSite' => 'Lax',
+            'Secure' => true,
+            'Expires' => time() + $ExpirationTime,
+        ]);
 
         // get token and shop from cookie and pass shop and access token to addBadgescript method
         $tokenAndShop = $_COOKIE["tokenAndShop"] ?? null;
         parse_str($tokenAndShop, $tokenAndShop_arr);
 
-        // check if scriptTagId exists in cookie
-        $scriptTagId = $_COOKIE["scriptTagId"] ?? null;
+        // check if script-tag-id exists in cookie
+        $scriptTagId = $_COOKIE["script-tag-id"] ?? null;
 
         // if scriptTagId exists, use PUT request to update badge script
         if ($scriptTagId) {
@@ -71,7 +77,7 @@ class TrulyBadgeController extends Controller
         $tokenAndShop = $_COOKIE["tokenAndShop"] ?? null;
         parse_str($tokenAndShop, $tokenAndShop_arr);
 
-        $siteId = $_COOKIE["siteId"] ?? null;
+        $siteId = $_COOKIE["site-id"] ?? null;
 
         $trulyBadgeResponse = $_COOKIE["trulyBadgeResponse"] ?? null;
 
@@ -91,14 +97,14 @@ class TrulyBadgeController extends Controller
 
         $siteId = $request->input('site_id');
 
-        setcookie("siteId", $siteId, time() + 3600, '/');
+        setcookie("site-id", $siteId, time() + 3600, '/');
 
         // get token and shop from cookie and pass shop and access token to addBadgescript method
         $tokenAndShop = $_COOKIE["tokenAndShop"] ?? null;
         parse_str($tokenAndShop, $tokenAndShop_arr);
 
         // check if scriptTagId exists in cookie
-        $scriptTagId = $_COOKIE["scriptTagId"] ?? null;
+        $scriptTagId = $_COOKIE["script-tag-id"] ?? null;
 
         // if scriptTagId exists, use PUT request to update badge script
         if ($scriptTagId) {
@@ -145,9 +151,14 @@ class TrulyBadgeController extends Controller
             if ($response->getStatusCode() == 200) {
                 Log::info('Badge script added successfully for ' . $postUrl);
 
-                // get script_tag id from response and store in cookie
+                // get script_tag id from response and store in cookie for 1 year
                 $scriptTagId = json_decode($response->getBody())->script_tag->id;
-                setcookie("scriptTagId", $scriptTagId, time() + 3600, '/');
+                $ExpirationTime = 12*31*24*60*60;
+                setcookie('script-tag-id', $scriptTagId, [
+                    'SameSite' => 'Lax',
+                    'Secure' => true,
+                    'Expires' => time() + $ExpirationTime,
+                ]);
 
                 setcookie("trulyBadgeResponse", $response->getBody(), time() + 3600, '/');
             } else {

@@ -67,7 +67,6 @@ class Oauth2Middleware extends oauth2
         $values_str = http_build_query($values);
 
         // set state-session
-        // setcookie('state-session', $values_str, time()+ self::$ExpirationTime);
         setcookie('state-session', $values_str, [
             'SameSite' => 'Lax',
             'Secure' => true,
