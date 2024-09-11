@@ -20,4 +20,8 @@
     .dark-cta-button-click {
         background: linear-gradient(94.42deg, #1f2937 3.25%, #07a0e5 100.23%);
     }
+
+    .truly-h1 {
+        font-family: 'articulat-heavy-cf', sans-serif;
+    }
 }
