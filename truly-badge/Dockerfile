@@ -65,9 +65,10 @@ RUN chmod +x /usr/local/bin/start-container
 
 COPY . .
 
+RUN npm install
+
 EXPOSE 80/tcp
 
-ENTRYPOINT ["start-container"]
+# Run npm run build when the container starts
+CMD ["bash", "-c", "npm run build && start-container"]
 
-RUN npm install
-RUN npm run build
