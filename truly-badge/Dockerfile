@@ -63,6 +63,8 @@ COPY vendor/laravel/sail/runtimes/8.3/supervisord.conf /etc/supervisor/conf.d/su
 COPY vendor/laravel/sail/runtimes/8.3/php.ini /etc/php/8.3/cli/conf.d/99-sail.ini
 RUN chmod +x /usr/local/bin/start-container
 
+COPY . .
+RUN npm install
 RUN npm run build
 
 EXPOSE 80/tcp
