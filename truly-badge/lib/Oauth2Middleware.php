@@ -146,8 +146,8 @@ class Oauth2Middleware extends oauth2
         header("Status: 200 OK");
         http_response_code(200);
 
-        // redirect to page-test view
-        header('Location:/page-test', true, 302);
+        // redirect to truly plugin landing page
+        header('Location:/', true, 302);
         exit;
     }
 
