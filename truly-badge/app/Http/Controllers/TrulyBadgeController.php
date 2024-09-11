@@ -24,18 +24,7 @@ class TrulyBadgeController extends Controller
     // plugin badges page
     public function badges()
     {
-        $tokenAndShop = $_COOKIE["tokenAndShop"] ?? null;
-        parse_str($tokenAndShop, $tokenAndShop_arr);
-
-        $siteId = $_COOKIE["site-id"] ?? null;
-
-        $trulyBadgeResponse = $_COOKIE["trulyBadgeResponse"] ?? null;
-
-        return Inertia::render('TrulyBadge/Badges/Index', [
-            'tokenAndShop' => $tokenAndShop_arr, 
-            'siteId' => $siteId,
-            'trulyBadgeResponse' => $trulyBadgeResponse,
-        ]);
+        return Inertia::render('TrulyBadge/Badges/Index');
     }
 
     public function update(Request $request)
@@ -69,51 +58,6 @@ class TrulyBadgeController extends Controller
         }
 
         return redirect()->route('badges', ['formSubmitted' => true]);
-    }
-
-    // test plugin functionality
-    public function pageTest()
-    {
-        $tokenAndShop = $_COOKIE["tokenAndShop"] ?? null;
-        parse_str($tokenAndShop, $tokenAndShop_arr);
-
-        $siteId = $_COOKIE["site-id"] ?? null;
-
-        $trulyBadgeResponse = $_COOKIE["trulyBadgeResponse"] ?? null;
-
-        return view('page-test', [
-            'tokenAndShop' => $tokenAndShop_arr, 
-            'siteId' => $siteId,
-            'trulyBadgeResponse' => $trulyBadgeResponse,
-        ]);
-    }
-
-    // handle site id submission
-    public function submitSiteId(Request $request)
-    {
-        $request->validate([
-            'site_id' => ['string', 'required'],
-        ]);
-
-        $siteId = $request->input('site_id');
-
-        setcookie("site-id", $siteId, time() + 3600, '/');
-
-        // get token and shop from cookie and pass shop and access token to addBadgescript method
-        $tokenAndShop = $_COOKIE["tokenAndShop"] ?? null;
-        parse_str($tokenAndShop, $tokenAndShop_arr);
-
-        // check if scriptTagId exists in cookie
-        $scriptTagId = $_COOKIE["script-tag-id"] ?? null;
-
-        // if scriptTagId exists, use PUT request to update badge script
-        if ($scriptTagId) {
-            $this->updateBadgeScript($tokenAndShop_arr, $siteId, $scriptTagId);
-        } else {
-            $this->addBadgeScript($tokenAndShop_arr, $siteId);
-        }
-
-        return redirect()->route('page.test');
     }
 
     // add badge script to the store
@@ -159,8 +103,6 @@ class TrulyBadgeController extends Controller
                     'Secure' => true,
                     'Expires' => time() + $ExpirationTime,
                 ]);
-
-                setcookie("trulyBadgeResponse", $response->getBody(), time() + 3600, '/');
             } else {
                 Log::error('Badge script add failed for ' . $postUrl);
             }

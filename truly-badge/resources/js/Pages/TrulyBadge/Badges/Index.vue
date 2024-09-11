@@ -57,12 +57,6 @@
                                 Save
                             </button>
                         </div>
-
-                        <div class="mt-4">
-                            <div class="text-xs">siteId: {{ siteId }}</div>
-                            <div class="text-xs">tokenAndShop: {{ tokenAndShop }}</div>
-                            <div class="text-xs">trulyBadgeResponse: {{ trulyBadgeResponse }}</div>
-                        </div>
                     </div>
                     <div class="col-span-1 bg-gray-900 text-white w-full rounded-2xl px-4 pt-4 pb-10">
                         right
@@ -80,21 +74,6 @@ import { has, isEmpty } from 'lodash';
 import { Head, useForm } from '@inertiajs/vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
 
-const props = defineProps({
-    tokenAndShop: {
-        type: Object,
-        default: () => ({}),
-    },
-    siteId: {
-        type: String,
-        default: '',
-    },
-    trulyBadgeResponse: {
-        type: Object,
-        default: () => ({}),
-    },
-});
-
 const form = useForm({
     siteId: '',
 });
@@ -111,7 +90,7 @@ let formSubmitted = ref(false);
 
 function submit() {
     if (form.isDirty) {
-        form.post(route('update'), {
+        form.post(route('badge.update'), {
             preserveScroll: true,
             onSuccess: () => {
                 formSubmitted = true;

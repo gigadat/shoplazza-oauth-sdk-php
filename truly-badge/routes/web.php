@@ -61,10 +61,7 @@ Route::controller(TrulyBadgeController::class)->group(function () {
     Route::get('/home', 'home')->name('home');
     Route::get('/badges', 'badges')->name('badges');
 
-    Route::post('/update', 'update')->name('update');
-
-    Route::get('/page-test', 'pageTest')->name('page.test');
-    Route::post('/submit-site-id', 'submitSiteId')->name('submit.site.id');
+    Route::post('/update', 'update')->name('badge.update');
 });
 
 
