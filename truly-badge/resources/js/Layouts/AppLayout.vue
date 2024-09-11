@@ -2,7 +2,7 @@
     <Head>
         <link
             rel="icon"
-            href="/images/truly-legit-favicon-1.png"
+            href="/images/icon.png"
             type="image/png"
         >
     </Head>
