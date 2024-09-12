@@ -13,7 +13,7 @@ class TrulyBadgeController extends Controller
     public function index()
     {
         if (isset($_COOKIE['plugin-installed']) && $_COOKIE['plugin-installed'] == 'true') {
-            abort(404);
+            return redirect()->route('home');
         }
 
         // create cookie plugin-installed with value true for 1 year

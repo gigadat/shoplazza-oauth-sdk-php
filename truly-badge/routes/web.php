@@ -21,10 +21,6 @@ use PHPShoplazza\Oauth2Middleware;
 |
 */
 
-Route::get('/hello', function () {
-    return 'hello worldpanda';
-});
-
 Route::domain(env('APP_DOMAIN'))->group(function (){
     // Build the route for the auth request
     Route::get('/oauth_sdk/app_uri', function () {
@@ -52,9 +48,16 @@ Route::domain(env('APP_DOMAIN'))->group(function (){
     });
 });
 
-Route::get('/philip-test', function () {
-    return Inertia::render('PhilipTest');
-});
+// For non-prod environment
+if (env('APP_ENV') !== 'production') {
+    Route::get('/hello', function () {
+        return 'hello worldpanda';
+    });
+    
+    Route::get('/philip-test', function () {
+        return Inertia::render('PhilipTest');
+    });
+}
 
 Route::controller(TrulyBadgeController::class)->group(function () {
     Route::get('/', 'index')->name('index');
