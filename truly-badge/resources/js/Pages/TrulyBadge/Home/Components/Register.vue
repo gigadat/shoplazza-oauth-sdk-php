@@ -49,8 +49,15 @@
                 </div>
             </div>
         </div>
-        <div class="rounded-3xl col-span-4 bg-gray-900">
-            
+        <div class="rounded-3xl col-span-4 bg-gray-900 overflow-hidden">
+            <!-- add youtube video -->
+            <iframe
+                class="w-full h-full"
+                src="https://www.youtube.com/watch?v=eIdNc6eMvyY"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+            ></iframe>
         </div>
     </div>
 </template>
