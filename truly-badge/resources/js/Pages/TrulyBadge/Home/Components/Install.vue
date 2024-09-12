@@ -52,6 +52,7 @@
         <div class="rounded-3xl col-span-4 bg-gray-900">
             <!-- add youtube video -->
             <iframe
+                id="install-video"
                 class="w-full h-full"
                 src="https://www.youtube.com/embed/o17MF9vnabg?si=d3ymjtFCM3Af5U1-"
                 frameborder="0"
