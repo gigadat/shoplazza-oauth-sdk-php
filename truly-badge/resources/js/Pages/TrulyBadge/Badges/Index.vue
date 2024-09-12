@@ -1,9 +1,7 @@
 <template>
     <Head title="Badges" />
     <AppLayout>
-        <div
-            class="bg-truly h-screen w-full flex items-center px-12 py-10"
-        >
+        <div class="bg-truly h-screen w-full flex items-center px-12 py-10">
             <div class="h-full w-full bg-gray-50 rounded-2xl flex justify-center">
                 <div class="w-5/6 md:w-3/4 flex flex-col items-center">
                     <div class="pt-8">
