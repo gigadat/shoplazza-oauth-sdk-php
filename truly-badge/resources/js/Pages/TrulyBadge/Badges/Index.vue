@@ -99,8 +99,9 @@
 
 <script setup>
 import { computed, ref } from 'vue'
-import { has, isEmpty } from 'lodash';
+import { isEmpty } from 'lodash';
 import { Head, useForm } from '@inertiajs/vue3';
+
 import AppLayout from '@/Layouts/AppLayout.vue';
 import SecureSite from '@/Components/Badges/SecureSite.vue';
 import VerifiedBusiness from '@/Components/Badges/VerifiedBusiness.vue';
