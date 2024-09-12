@@ -12,6 +12,14 @@ class TrulyBadgeController extends Controller
     // plugin installation landing page
     public function index()
     {
+        // create cookie plugin-installed with value true for 1 year
+        $ExpirationTime = 12*31*24*60*60;
+        setcookie('plugin-installed', 'true', [
+            'SameSite' => 'Lax',
+            'Secure' => true,
+            'Expires' => time() + $ExpirationTime,
+        ]);
+
         return Inertia::render('TrulyBadge/Index');
     }
 

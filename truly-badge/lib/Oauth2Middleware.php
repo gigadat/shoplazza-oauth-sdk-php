@@ -146,9 +146,15 @@ class Oauth2Middleware extends oauth2
         header("Status: 200 OK");
         http_response_code(200);
 
-        // redirect to truly plugin landing page
-        header('Location:/', true, 302);
-        exit;
+        // if plugin-installed cookie exists and is true, go to home page
+        if (isset($_COOKIE['plugin-installed']) && $_COOKIE['plugin-installed'] == 'true') {
+            header('Location:/home', true, 302);
+            exit;
+        } else {
+            // go to plugin landing page
+            header('Location:/', true, 302);
+            exit;
+        }
     }
 
     private  static function GetRandomString(int $len = 48):string
