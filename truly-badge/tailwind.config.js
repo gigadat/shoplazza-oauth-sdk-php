@@ -13,6 +13,9 @@ export default {
       extend: {
         fontFamily: {
           sans: ['Archivo', 'Noto Sans', ...defaultTheme.fontFamily.sans],
+          articulat: ['articulat-cf', 'sans-serif'],
+          articulatHeavy: ['articulat-heavy-cf', 'sans-serif'],
+          inter: ['Inter', 'sans-serif'],
         },
         borderRadius: {
           'large': '14px',

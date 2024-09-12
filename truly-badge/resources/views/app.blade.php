@@ -8,6 +8,7 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://use.typekit.net/kzm8ulg.css">
 
         <!-- Styles -->
@@ -18,7 +19,7 @@
 
         @inertiaHead
     </head>
-    <body class="font-sans antialiased h-full">
+    <body class="font-inter antialiased h-full">
         @inertia
 
         <div id="app" data-page="{{ json_encode($page) }}"></div>
