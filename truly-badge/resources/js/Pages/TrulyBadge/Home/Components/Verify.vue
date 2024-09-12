@@ -49,7 +49,7 @@
                 </div>
             </div>
         </div>
-        <div class="rounded-3xl col-span-4 bg-gray-900">
+        <div class="rounded-3xl col-span-4 bg-gray-900 overflow-hidden">
             <!-- add youtube video -->
             <iframe
                 id="verify-video"
