@@ -12,7 +12,7 @@
                     <div class="w-3/5 pt-4 flex text-center font-articulat">
                         Follow the step by step instructions to sign-up and set-up the Truly Legit service.
                     </div>
-                    <div class="py-6 2xl:py-10">
+                    <div class="pt-6 2xl:pt-10">
                         <div class="w-full">
                             <TabPages
                                 :num-pages="3"
@@ -37,7 +37,6 @@
                             </TabPages>
                         </div>
                     </div>
-                    <div>bottom</div>
                 </div>
             </div>
         </div>

@@ -84,6 +84,16 @@
     >
         <slot name="fourth" />
     </div>
+
+    <div class="pt-10 2xl:pt-12 flex justify-center items-center">
+        <button
+            @click="goToNextStep"
+            class="group hidden md:flex items-center justify-center rounded-3xl dark-cta-button-default hover:dark-cta-button-hover text-white text-sm px-5 py-4 shadow-sm cursor-pointer"
+        >
+            <div class="h-3 w-3 rounded-full mr-2 bg-white group-hover:bg-blue-custom transition-colors duration-300"></div>
+            <div>Next Step</div>
+    </button>
+    </div>
 </template>
 <script setup>
 import { reactive } from 'vue';
@@ -123,4 +133,21 @@ const props = defineProps({
 const state = reactive({
     activeTab: 'first',
 });
+
+function goToNextStep() {
+    switch (state.activeTab) {
+        case 'first':
+            state.activeTab = 'second';
+            break;
+        case 'second':
+            state.activeTab = 'third';
+            break;
+        case 'third':
+            state.activeTab = 'first';
+            break;
+        // case 'fourth':
+        //     state.activeTab = 'first';
+        //     break;
+    }
+}
 </script>
