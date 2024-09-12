@@ -16,7 +16,7 @@ class CheckTokenAndShop
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!$request->hasCookie('tokenAndShop')) {
+        if (!isset($_COOKIE['tokenAndShop'])) {
             // abort 403 forbidden if 'tokenAndShop' cookie does not exist
             abort(403);
         }
