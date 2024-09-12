@@ -53,18 +53,20 @@ if (env('APP_ENV') !== 'production') {
     Route::get('/hello', function () {
         return 'hello worldpanda';
     });
-    
+
     Route::get('/philip-test', function () {
         return Inertia::render('PhilipTest');
     });
 }
 
-Route::controller(TrulyBadgeController::class)->group(function () {
-    Route::get('/', 'index')->name('index');
-    Route::get('/home', 'home')->name('home');
-    Route::get('/badges', 'badges')->name('badges');
-
-    Route::post('/update', 'update')->name('badge.update');
+Route::middleware('checkTokenAndShop')->group(function () {
+    Route::controller(TrulyBadgeController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/home', 'home')->name('home');
+        Route::get('/badges', 'badges')->name('badges');
+    
+        Route::post('/update', 'update')->name('badge.update');
+    });
 });
 
 
