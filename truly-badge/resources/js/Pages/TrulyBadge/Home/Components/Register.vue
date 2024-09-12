@@ -53,7 +53,7 @@
             <!-- add youtube video -->
             <iframe
                 class="w-full h-full"
-                src="https://www.youtube.com/watch?v=eIdNc6eMvyY"
+                src="https://www.youtube.com/embed/eIdNc6eMvyY?si=7obyBKKNYrWc5ANo"
                 frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen
