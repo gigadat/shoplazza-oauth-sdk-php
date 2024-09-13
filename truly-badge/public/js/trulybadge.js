@@ -1,6 +1,6 @@
 (function () {
     const scripts = Array.from(document.getElementsByTagName('script'));
-    const trulyBadgeScript = scripts.find(s => s.src.includes('trulybadge_qa.js'));
+    const trulyBadgeScript = scripts.find(s => s.src.includes('trulybadge.js'));
     const siteId = trulyBadgeScript ? new URLSearchParams(new URL(trulyBadgeScript.src).search).get('siteId') : null;
 
     // if script with tlv1 already exists, replace it with the new one
