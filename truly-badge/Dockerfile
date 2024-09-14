@@ -1,8 +1,8 @@
 FROM ubuntu:22.04
 
-LABEL maintainer="Taylor Otwell"
+LABEL maintainer="Truly Legit"
 
-ARG WWWGROUP
+ARG WWWGROUP=1000
 ARG NODE_VERSION=20
 ARG MYSQL_CLIENT="mysql-client"
 ARG POSTGRES_VERSION=15
