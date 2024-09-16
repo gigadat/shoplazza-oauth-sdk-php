@@ -1,7 +1,7 @@
 <template>
     <Head title="Home" />
     <AppLayout>
-        <div class="bg-truly h-screen w-full flex items-center px-12 py-10">
+        <div class="bg-truly min-h-svh w-full flex items-center px-12 py-10">
             <div class="h-full w-full bg-gray-50 rounded-2xl flex justify-center">
                 <div class="w-5/6 2xl:w-3/4 flex flex-col items-center">
                     <div class="pt-8">
@@ -12,7 +12,7 @@
                     <div class="w-3/5 pt-4 flex text-center font-articulat">
                         Follow the step by step instructions to sign-up and set-up the Truly Legit service.
                     </div>
-                    <div class="pt-6 2xl:pt-10">
+                    <div class="pt-6 2xl:pt-10 pb-8">
                         <div class="w-full">
                             <TabPages
                                 :num-pages="3"
