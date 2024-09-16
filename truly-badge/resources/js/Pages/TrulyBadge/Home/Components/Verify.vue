@@ -67,10 +67,12 @@
 import { BuildingOffice2Icon } from '@heroicons/vue/24/outline';
 
 function goToVerifications() {
-    if (import.meta.env.VUE_APP_ENV === 'production') {
-        window.open('https://portal.trulylegit.com/verifications', '_blank');
-    } else {
-        window.open('https://qa-portal.trulylegit.com/verifications', '_blank');
-    }
+    window.open('https://portal.trulylegit.com/verifications', '_blank');
+    
+    // if (import.meta.env.VUE_APP_ENV === 'production') {
+    //     window.open('https://portal.trulylegit.com/verifications', '_blank');
+    // } else {
+    //     window.open('https://qa-portal.trulylegit.com/verifications', '_blank');
+    // }
 }
 </script>
