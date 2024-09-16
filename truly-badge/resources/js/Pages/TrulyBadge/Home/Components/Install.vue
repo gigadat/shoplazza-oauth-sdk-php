@@ -54,7 +54,7 @@
             <iframe
                 id="install-video"
                 class="w-full h-full"
-                src="https://www.youtube.com/embed/o17MF9vnabg?si=d3ymjtFCM3Af5U1-"
+                src="https://www.youtube.com/embed/Orr_gmIU5Bo?si=TkGfuqrt9UaMcEx_"
                 frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen
