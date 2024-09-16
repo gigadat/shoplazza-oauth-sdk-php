@@ -65,12 +65,20 @@
 
 <script setup>
 import { ClipboardDocumentListIcon } from '@heroicons/vue/24/outline';
+import { onMounted } from 'vue';
+
+// on mount console.log(import .meta.env.VUE_APP_ENV);
+onMounted(() => {
+    console.log('VUE ENV: ' . import.meta.env.VUE_APP_ENV);
+});
 
 function goToRegister() {
-    if (import.meta.env.VUE_APP_ENV === 'production') {
-        window.open('https://trulylegit.com/pricing', '_blank');
-    } else {
-        window.open('https://qa-portal.trulylegit.com/pricing', '_blank');
-    }
+    window.open('https://trulylegit.com/pricing', '_blank');
+    
+    // if (import.meta.env.VUE_APP_ENV === 'production') {
+    //     window.open('https://trulylegit.com/pricing', '_blank');
+    // } else {
+    //     window.open('https://qa-portal.trulylegit.com/pricing', '_blank');
+    // }
 }
 </script>

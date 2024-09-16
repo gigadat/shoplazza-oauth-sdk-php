@@ -67,10 +67,12 @@
 import { CheckBadgeIcon } from '@heroicons/vue/24/outline';
 
 function goToCustomizeBadges() {
-    if (import.meta.env.VUE_APP_ENV === 'production') {
-        window.open('https://portal.trulylegit.com/badges', '_blank');
-    } else {
-        window.open('https://qa-portal.trulylegit.com/badges', '_blank');
-    }
+    window.open('https://portal.trulylegit.com/badges', '_blank');
+    
+    // if (import.meta.env.VUE_APP_ENV === 'production') {
+    //     window.open('https://portal.trulylegit.com/badges', '_blank');
+    // } else {
+    //     window.open('https://qa-portal.trulylegit.com/badges', '_blank');
+    // }
 }
 </script>
