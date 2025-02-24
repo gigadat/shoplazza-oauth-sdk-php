@@ -65,12 +65,6 @@
 
 <script setup>
 import { ClipboardDocumentListIcon } from '@heroicons/vue/24/outline';
-import { onMounted } from 'vue';
-
-// on mount console.log(import .meta.env.VUE_APP_ENV);
-onMounted(() => {
-    console.log('VUE ENV: ' . import.meta.env.VUE_APP_ENV);
-});
 
 function goToRegister() {
     window.open('https://trulylegit.com/pricing', '_blank');
