@@ -3,6 +3,16 @@
 .idea/modules.xml
 .idea/misc.xml
 .idea/.gitignore
+/.vscode
 truly-badge/.DS_Store
 .DS_Store
 .idea/php.xml
+/node_modules
+/public/hot
+/public/storage
+/public/build/
+/public/css/
+/public/js/
+/storage/*.key
+/vendor
+.env
